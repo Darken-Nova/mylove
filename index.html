@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín para mi tomatito</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8e1e7;
+            color: #5a3d5c;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.5s ease;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('./bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            z-index: -1;
+            transition: opacity 0.8s ease;
+        }
+        
+        body.darkened::before {
+            opacity: 0.3;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(158, 50, 101, 0.2);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            border: 2px solid #ff9bc1;
+            overflow: hidden;
+        }
+        
+        .hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff4d8d;
+            opacity: 0.7;
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #d63384;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #7a4b7c;
+        }
+        
+        .question-box {
+            background: linear-gradient(135deg, #ffcfe0 0%, #ff9bc1 100%);
+            padding: 40px 30px;
+            border-radius: 15px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            border: 3px solid #ff7eb3;
+            position: relative;
+        }
+        
+        .question-box h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #9a1663;
+            margin-bottom: 30px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            position: relative;
+            min-height: 80px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .btn-yes {
+            background: linear-gradient(to right, #ff7eb3, #ff4d8d);
+            color: white;
+            border: 2px solid #ff2d7f;
+            z-index: 10;
+        }
+        
+        .btn-no {
+            background: linear-gradient(to right, #b8b8b8, #888);
+            color: white;
+            border: 2px solid #666;
+            position: relative;
+            z-index: 5;
+            transition: left 0.2s ease, top 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #ffcfe0 0%, #ff9bc1 100%);
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 3px solid #ff7eb3;
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #9a1663;
+            margin-bottom: 20px;
+        }
+        
+        .modal-content p {
+            font-size: 1.4rem;
+            color: #5a3d5c;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .modal-content .close-btn {
+            background: linear-gradient(to right, #ff7eb3, #ff4d8d);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: 2px solid #ff2d7f;
+        }
+        
+        .modal-content .close-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .question-box h2 {
+                font-size: 2.2rem;
+            }
+            
+            .modal-content h2 {
+                font-size: 2.8rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+            }
+        }
+        
+        .counter {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #d63384;
+            font-weight: 600;
+        }
+        
+        .no-btn-container {
+            position: relative;
+            min-height: 60px;
+            min-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="container">
+        <h1>Para mi tomatito en San Valentín</h1>
+        <p class="subtitle">Este día especial es solo el comienzo de nuestra historia...</p>
+        
+        <div class="question-box">
+            <h2 id="questionText">¿Quieres ser mi San Valentín?</h2>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesBtn">¡Sí!</button>
+                <div class="no-btn-container">
+                    <button class="btn btn-no" id="noBtn">No</button>
+                </div>
+            </div>
+            <div class="counter" id="counter">Intentos de escape: 0</div>
+        </div>
+        
+        <p class="instructions">Pista: El botón "No" es escurridizo, ¡pero el "Sí" es tu mejor opción!</p>
+    </div>
+    
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <h2 id="modalTitle">¡Gracias por aceptar!</h2>
+            <p id="modalMessage">Sabes hoy 14 de Febrero se celebra el Dia de los enamorados, puede que no este alla contigo y no tenga como darte los regalos que mereces pero a pesar de la distancia quiero que tengas presente que te amo, estudio programacion, esto es lo que hago, a simple vista puede ser "simple" pero tiene tiempo y esfuerzo para que todo funcione como quiero, como quiero que funcione lo nuestro a pesar de la distancia, te amo mi tomatito.</p>
+            <button class="close-btn" id="closeModalBtn">Cerrar</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos principales
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const body = document.body;
+            const heartsContainer = document.getElementById('heartsContainer');
+            const counterElement = document.getElementById('counter');
+            const buttonsContainer = document.querySelector('.buttons-container');
+            
+            // Variables para el contador y tamaño del botón Sí
+            let escapeAttempts = 0;
+            let yesBtnSize = 1;
+            
+            // Crear corazones flotantes
+            function createHearts() {
+                const heartCount = 30;
+                
+                for (let i = 0; i < heartCount; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '❤️';
+                    
+                    // Posición aleatoria
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const delay = Math.random() * 5;
+                    const size = Math.random() * 20 + 15;
+                    
+                    heart.style.left = `${posX}%`;
+                    heart.style.top = `${posY}%`;
+                    heart.style.fontSize = `${size}px`;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    heartsContainer.appendChild(heart);
+                }
+            }
+            
+            // Función para mover el botón No a una posición aleatoria
+            function moveNoButton() {
+                const containerRect = buttonsContainer.getBoundingClientRect();
+                const buttonRect = noBtn.getBoundingClientRect();
+                
+                // Asegurarse de que el botón no se salga del contenedor
+                const maxX = containerRect.width - buttonRect.width - 20;
+                const maxY = containerRect.height - buttonRect.height - 20;
+                
+                // Posiciones aleatorias dentro del contenedor
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                // Aplicar la nueva posición absoluta
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                
+                // Incrementar el contador de intentos
+                escapeAttempts++;
+                counterElement.textContent = `Intentos de escape: ${escapeAttempts}`;
+                
+                // Aumentar el tamaño del botón Sí
+                yesBtnSize += 0.1;
+                yesBtn.style.transform = `scale(${yesBtnSize})`;
+                
+                // Cambiar el texto de la pregunta después de algunos intentos
+                if (escapeAttempts === 3) {
+                    document.getElementById('questionText').textContent = "¿Seguro que no quieres ser mi San Valentín?";
+                } else if (escapeAttempts === 6) {
+                    document.getElementById('questionText').textContent = "Vamos, dale otra oportunidad al Sí";
+                } else if (escapeAttempts === 9) {
+                    document.getElementById('questionText').textContent = "¡El botón No está trampeado! Elige el Sí";
+                } else if (escapeAttempts === 12) {
+                    document.getElementById('questionText').textContent = "¡Te tengo! El Sí es tu destino";
+                }
+                
+                // Efecto de sonido (opcional)
+                makeClickSound();
+            }
+            
+            // Efecto de sonido para el botón No
+            function makeClickSound() {
+                // Crear un sonido de clic simple
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = 300 + (escapeAttempts * 10);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                } catch (e) {
+                    console.log("Audio no disponible");
+                }
+            }
+            
+            // Mostrar el modal con el mensaje
+            function showModal() {
+                body.classList.add('darkened');
+                modalOverlay.classList.add('active');
+                
+                // Crear efecto de confeti cuando se acepta
+                createConfetti();
+                
+                // Reproducir sonido de éxito
+                playSuccessSound();
+            }
+            
+            // Reproducir sonido de éxito
+            function playSuccessSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Crear una melodía simple de éxito
+                    const notes = [523.25, 659.25, 783.99]; // Do, Mi, Sol
+                    let time = audioContext.currentTime;
+                    
+                    notes.forEach((frequency, index) => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.value = frequency;
+                        oscillator.type = 'sine';
+                        
+                        gainNode.gain.setValueAtTime(0, time);
+                        gainNode.gain.linearRampToValueAtTime(0.2, time + 0.1);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, time + 0.3);
+                        
+                        oscillator.start(time);
+                        oscillator.stop(time + 0.3);
+                        
+                        time += 0.2;
+                    });
+                } catch (e) {
+                    console.log("Audio no disponible");
+                }
+            }
+            
+            // Cerrar el modal
+            function closeModal() {
+                body.classList.remove('darkened');
+                modalOverlay.classList.remove('active');
+            }
+            
+            // Crear efecto de confeti
+            function createConfetti() {
+                const confettiCount = 150;
+                const colors = ['#ff4d8d', '#ff7eb3', '#ff9bc1', '#d63384', '#ff2d7f'];
+                
+                for (let i = 0; i < confettiCount; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('heart');
+                    confetti.innerHTML = '❤️';
+                    
+                    // Posición aleatoria en la parte superior
+                    const posX = Math.random() * 100;
+                    const posY = -10;
+                    const delay = Math.random() * 1;
+                    const size = Math.random() * 20 + 10;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    confetti.style.left = `${posX}%`;
+                    confetti.style.top = `${posY}%`;
+                    confetti.style.fontSize = `${size}px`;
+                    confetti.style.color = color;
+                    confetti.style.animation = `float 3s ease-in ${delay}s forwards`;
+                    
+                    // Agregar al overlay del modal
+                    modalOverlay.appendChild(confetti);
+                    
+                    // Eliminar después de la animación
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }
+            }
+            
+            // Event listeners
+            noBtn.addEventListener('mouseover', moveNoButton);
+            noBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                moveNoButton();
+            });
+            noBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                moveNoButton();
+            });
+            
+            yesBtn.addEventListener('click', showModal);
+            closeModalBtn.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+        
+            // Inicializar corazones flotantes
+            createHearts();
+            
+            // Asegurarse de que los botones estén uno al lado del otro al inicio
+            setTimeout(() => {
+                noBtn.style.position = 'relative';
+                noBtn.style.left = '0';
+                noBtn.style.top = '0';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
