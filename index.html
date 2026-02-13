@@ -101,6 +101,54 @@
             margin-bottom: 40px;
             color: #7a4b7c;
         }
+
+        .timer-container {
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffd9e8 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto 30px;
+            border: 2px solid #ff9bc1;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+        }
+
+        .timer-label {
+            font-size: 1.1rem;
+            color: #9a1663;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .timer {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #d63384;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .timer-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .timer-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #9a1663;
+        }
+
+        .timer-text {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            color: #7a4b7c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
         
         .question-box {
             background: linear-gradient(135deg, #ffcfe0 0%, #ff9bc1 100%);
@@ -267,6 +315,19 @@
                 padding: 12px 30px;
                 font-size: 1.3rem;
             }
+
+            .timer {
+                font-size: 1.8rem;
+                gap: 10px;
+            }
+
+            .timer-value {
+                font-size: 2rem;
+            }
+
+            .timer-unit {
+                min-width: 60px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -277,6 +338,17 @@
             
             .btn {
                 width: 80%;
+            }
+
+            .timer {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .timer-unit {
+                flex-direction: row;
+                gap: 10px;
+                min-width: auto;
             }
         }
         
@@ -301,6 +373,29 @@
         <h1>Para mi tomatito en San Valentín</h1>
         <p class="subtitle">Este día especial es solo el comienzo de nuestra historia...</p>
         
+        <!-- Nuevo cronómetro -->
+        <div class="timer-container">
+            <div class="timer-label">✨ Tiempo desde que somos novios ✨</div>
+            <div class="timer" id="timer">
+                <div class="timer-unit">
+                    <span class="timer-value" id="days">00</span>
+                    <span class="timer-text">Días</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-value" id="hours">00</span>
+                    <span class="timer-text">Horas</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-value" id="minutes">00</span>
+                    <span class="timer-text">Minutos</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-value" id="seconds">00</span>
+                    <span class="timer-text">Segundos</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="question-box">
             <h2 id="questionText">¿Quieres ser mi San Valentín?</h2>
             <div class="buttons-container">
@@ -318,7 +413,7 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <h2 id="modalTitle">¡Gracias por aceptar!</h2>
-            <p id="modalMessage">Sabes hoy 14 de Febrero se celebra el Dia de los enamorados, puede que no este alla contigo y no tenga como darte los regalos que mereces pero a pesar de la distancia quiero que tengas presente que te amo, estudio programacion, esto es lo que hago, a simple vista puede ser "simple" pero tiene tiempo y esfuerzo para que todo funcione como quiero, como quiero que funcione lo nuestro a pesar de la distancia, te amo mi tomatito.</p>
+            <p id="modalMessage">Sabes hoy 14 de Febrero se celebra el Dia de los enamorados, puede que no este alla contigo y no tenga como darte los regalos que mereces pero a pesar de la distancia quiero que tengas presente que te amo, estudio programacion, esto es lo que hago, a simple vista puede ser "simple" pero tiene tiempo y esfuerzo para que todo funcione como quiero, como quiero que funcione lo nuestro a pesar de la distancia, espero que el proximo año tambien seas mi san valentin, tenemos 10 meses casi 1 año, te amo demasiado mi tomatito.</p>
             <button class="close-btn" id="closeModalBtn">Cerrar</button>
         </div>
     </div>
@@ -338,6 +433,33 @@
             // Variables para el contador y tamaño del botón Sí
             let escapeAttempts = 0;
             let yesBtnSize = 1;
+            
+            // Función para actualizar el cronómetro
+            function updateTimer() {
+                // Fecha objetivo: 4 de abril de 2025, 8:35 PM (hora local)
+                const targetDate = new Date(2025, 3, 4, 20, 35, 0); // Mes 3 = Abril (0-indexed)
+                const now = new Date();
+                
+                // Calcular la diferencia en milisegundos
+                const difference = now - targetDate;
+                
+                if (difference > 0) {
+                    // Calcular días, horas, minutos, segundos
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                    
+                    // Actualizar el DOM con leading zeros
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                }
+            }
+            
+            // Actualizar el cronómetro cada segundo
+            setInterval(updateTimer, 1000);
             
             // Crear corazones flotantes
             function createHearts() {
@@ -533,6 +655,9 @@
         
             // Inicializar corazones flotantes
             createHearts();
+            
+            // Inicializar el cronómetro
+            updateTimer();
             
             // Asegurarse de que los botones estén uno al lado del otro al inicio
             setTimeout(() => {
