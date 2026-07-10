@@ -1,0 +1,245 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 1100px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 2.2rem;
+}
+
+.container > p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.game-area {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Estilo del tablero central */
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3px;
+    background: #2c3e50;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+}
+
+/* Cada celda del tablero */
+.celda {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    position: relative;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.celda.ocupada {
+    border: 2px solid rgba(46, 204, 113, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.celda.seleccionada {
+    background: rgba(52, 152, 219, 0.4);
+    border-color: #3498db;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(52, 152, 219, 0.5);
+    z-index: 5;
+}
+
+.celda.intercambio {
+    animation: intercambio 0.5s ease;
+}
+
+@keyframes intercambio {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.2); background: rgba(46, 204, 113, 0.6); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); background: rgba(46, 204, 113, 0); }
+}
+
+/* Estilo de cada pieza */
+.pieza {
+    width: 100%;
+    height: 100%;
+    background-size: 500px 500px;
+    border-radius: 3px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    user-select: none;
+    pointer-events: none;
+}
+
+.pieza.colocada {
+    border: 3px solid #27ae60;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+}
+
+.pieza.correcta {
+    border: 3px solid #27ae60;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+}
+
+/* Panel lateral */
+.info-lateral {
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+}
+
+.estadisticas {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.estadisticas p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.estadisticas span {
+    font-weight: bold;
+    color: #2ecc71;
+    font-size: 1.5rem;
+}
+
+.barra-progreso {
+    width: 100%;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progreso {
+    height: 100%;
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: white;
+}
+
+#btnReiniciar {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+#btnReiniciar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+#btnRevolver {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+#btnRevolver:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+}
+
+.mensaje-victoria {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #fff;
+    animation: celebrar 1s ease-in-out infinite alternate;
+    margin-top: 10px;
+    box-shadow: 0 10px 30px rgba(253, 160, 133, 0.4);
+}
+
+@keyframes celebrar {
+    0% { transform: scale(1) rotate(-1deg); }
+    100% { transform: scale(1.05) rotate(1deg); }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .game-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tablero {
+        width: 450px;
+        height: 450px;
+    }
+    
+    .info-lateral {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    .tablero {
+        width: 320px;
+        height: 320px;
+        gap: 2px;
+        padding: 6px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+}

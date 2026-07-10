@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧩 Sorpresa 10 de 29 🧩</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Hola mi tomatito, Suerte amol</h1>
+        <p>Haz clic en una pieza y luego en otra para intercambiarlas</p>
+        
+        <div class="game-area">
+            <!-- Tablero principal -->
+            <div id="tablero" class="tablero"></div>
+            
+            <!-- Panel derecho con información -->
+            <div class="info-lateral">
+                <div class="estadisticas">
+                    <p>✅ Piezas colocadas: <br><span id="contador">0</span>/<span id="totalPiezas">36</span></p>
+                    <div class="barra-progreso">
+                        <div id="progreso" class="progreso"></div>
+                    </div>
+                    <button id="btnReiniciar">🔄 Reiniciar</button>
+                    <button id="btnRevolver">🎲 Revolver</button>
+                </div>
+                <div id="mensajeVictoria" class="mensaje-victoria" style="display:none;">
+                    🎉 ¡INTELIGENTE MI MUJER! 🎉
+                    <br><span style="font-size:1rem;">¡Te gusto la sorpresa amol? jajaja!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
