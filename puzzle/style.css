@@ -57,6 +57,16 @@ h1 {
     width: 500px;
     height: 500px;
     flex-shrink: 0;
+    position: relative;
+}
+
+/* Cuando el tablero está completado - se convierte en un contenedor normal */
+.tablero.completado {
+    display: block;
+    padding: 0;
+    background: #2c3e50;
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.3);
+    transition: all 1s ease;
 }
 
 /* Cada celda del tablero */
@@ -207,6 +217,21 @@ button {
 @keyframes celebrar {
     0% { transform: scale(1) rotate(-1deg); }
     100% { transform: scale(1.05) rotate(1deg); }
+}
+
+/* Animación para la imagen completa al ganar */
+@keyframes aparecerImagen {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* Responsive */

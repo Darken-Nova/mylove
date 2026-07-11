@@ -6,7 +6,7 @@ const TOTAL_PIEZAS = FILAS * COLUMNAS;
 // Estado del juego
 let piezas = [];
 let juegoCompletado = false;
-let piezaSeleccionada = null; // Índice de la pieza seleccionada
+let piezaSeleccionada = null;
 
 // Elementos del DOM
 const tablero = document.getElementById('tablero');
@@ -19,12 +19,12 @@ const mensajeVictoria = document.getElementById('mensajeVictoria');
 totalPiezas.textContent = TOTAL_PIEZAS;
 
 function inicializarPuzzle() {
-    // Crear array con todas las piezas (0 a 35)
     piezas = Array.from({ length: TOTAL_PIEZAS }, (_, i) => i);
     revolverPiezas();
     juegoCompletado = false;
     piezaSeleccionada = null;
     mensajeVictoria.style.display = 'none';
+    tablero.classList.remove('completado');
     renderizarTablero();
     actualizarContador();
 }
@@ -38,7 +38,6 @@ function revolverPiezas() {
         intercambiar(a, b);
     }
     
-    // Asegurar que no esté resuelto
     let resuelto = true;
     for (let i = 0; i < TOTAL_PIEZAS; i++) {
         if (piezas[i] !== i) {
@@ -54,7 +53,6 @@ function revolverPiezas() {
     }
 }
 
-// Función para intercambiar dos posiciones
 function intercambiar(pos1, pos2) {
     if (pos1 === pos2) return;
     const temp = piezas[pos1];
@@ -62,18 +60,23 @@ function intercambiar(pos1, pos2) {
     piezas[pos2] = temp;
 }
 
-// Renderizar tablero - TODAS las piezas visibles
+// Renderizar tablero
 function renderizarTablero() {
     tablero.innerHTML = '';
     const tamaño = 500;
     const piezaTamaño = tamaño / COLUMNAS;
+    
+    // Si el juego está completado, mostrar la imagen completa
+    if (juegoCompletado) {
+        mostrarImagenCompleta(tamaño);
+        return;
+    }
     
     for (let i = 0; i < TOTAL_PIEZAS; i++) {
         const celda = document.createElement('div');
         celda.className = 'celda';
         celda.dataset.index = i;
         
-        // SIEMPRE hay una pieza en cada celda (todas las posiciones están ocupadas)
         const pieza = document.createElement('div');
         pieza.className = 'pieza';
         pieza.dataset.indice = piezas[i];
@@ -85,7 +88,6 @@ function renderizarTablero() {
         pieza.style.backgroundSize = `${tamaño}px ${tamaño}px`;
         pieza.style.backgroundPosition = `-${columna * piezaTamaño}px -${fila * piezaTamaño}px`;
         
-        // Marcar si está en su posición correcta
         if (piezas[i] === i) {
             pieza.classList.add('colocada');
             pieza.classList.add('correcta');
@@ -93,14 +95,11 @@ function renderizarTablero() {
         
         celda.appendChild(pieza);
         celda.classList.add('ocupada');
-        
-        // Evento clic para seleccionar e intercambiar
         celda.addEventListener('click', () => manejarClicCelda(i));
         
         tablero.appendChild(celda);
     }
     
-    // Actualizar selección visual
     if (piezaSeleccionada !== null) {
         const celdas = tablero.querySelectorAll('.celda');
         celdas.forEach((celda, index) => {
@@ -111,35 +110,60 @@ function renderizarTablero() {
     }
 }
 
+// MOSTRAR IMAGEN COMPLETA - Versión corregida
+function mostrarImagenCompleta(tamaño) {
+    // Crear la imagen completa
+    const contenedor = document.createElement('div');
+    contenedor.style.width = '100%';
+    contenedor.style.height = '100%';
+    contenedor.style.backgroundImage = "url('puzzle.jpg')";
+    contenedor.style.backgroundSize = `${tamaño}px ${tamaño}px`;
+    contenedor.style.backgroundPosition = 'center';
+    contenedor.style.backgroundRepeat = 'no-repeat';
+    contenedor.style.borderRadius = '8px';
+    contenedor.style.animation = 'aparecerImagen 0.8s ease';
+    
+    // Asegurar que la imagen se vea completa
+    contenedor.style.position = 'relative';
+    contenedor.style.overflow = 'hidden';
+    
+    // Agregar un efecto de brillo
+    const brillo = document.createElement('div');
+    brillo.style.position = 'absolute';
+    brillo.style.top = '0';
+    brillo.style.left = '0';
+    brillo.style.width = '100%';
+    brillo.style.height = '100%';
+    brillo.style.background = 'radial-gradient(circle at center, rgba(255,215,0,0.1) 0%, transparent 70%)';
+    brillo.style.pointerEvents = 'none';
+    contenedor.appendChild(brillo);
+    
+    tablero.appendChild(contenedor);
+}
+
 // Manejar clic en una celda
 function manejarClicCelda(index) {
     if (juegoCompletado) return;
     
-    // Si no hay pieza seleccionada, seleccionar esta
     if (piezaSeleccionada === null) {
         piezaSeleccionada = index;
         resaltarCelda(index, true);
         return;
     }
     
-    // Si ya hay una pieza seleccionada
     if (piezaSeleccionada === index) {
-        // Si es la misma, deseleccionar
         deseleccionar();
         return;
     }
     
-    // INTERCAMBIAR las dos piezas
     const origen = piezaSeleccionada;
     const destino = index;
     
-    // Intercambiar en el array
     const valorOrigen = piezas[origen];
     const valorDestino = piezas[destino];
     piezas[origen] = valorDestino;
     piezas[destino] = valorOrigen;
     
-    // Animación
     const celdas = tablero.querySelectorAll('.celda');
     celdas.forEach(celda => {
         if (celda.dataset.index == origen || celda.dataset.index == destino) {
@@ -148,16 +172,12 @@ function manejarClicCelda(index) {
         }
     });
     
-    // Deseleccionar
     deseleccionar();
-    
-    // Actualizar vista
     renderizarTablero();
     actualizarContador();
     verificarVictoria();
 }
 
-// Funciones de selección
 function resaltarCelda(index, activar) {
     const celdas = tablero.querySelectorAll('.celda');
     celdas.forEach(celda => {
@@ -207,7 +227,8 @@ function verificarVictoria() {
         mensajeVictoria.style.display = 'block';
         progreso.style.width = '100%';
         progreso.style.background = 'linear-gradient(90deg, #00b09b, #96c93d)';
-        renderizarTablero();
+        tablero.classList.add('completado');
+        renderizarTablero(); // Esto mostrará la imagen completa
     }
 }
 
@@ -242,6 +263,4 @@ document.getElementById('btnRevolver').addEventListener('click', revolverJuego);
 // Iniciar el juego
 inicializarPuzzle();
 
-console.log('🧩 Puzzle de intercambio cargado correctamente');
-console.log('📝 Todas las piezas están visibles en el tablero');
-console.log('📝 Haz clic en una pieza y luego en otra para intercambiarlas');
+console.log('🧩 Puzzle cargado correctamente');
