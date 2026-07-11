@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 Juego de Memoria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>💝 Encuentra las Parejas</h1>
+        <p>Encuentra las 10 parejas de imágenes</p>
+        
+        <div class="estadisticas">
+            <div class="info-juego">
+                <span>🎯 Intentos: <strong id="intentos">0</strong></span>
+                <span>✅ Parejas: <strong id="parejas">0</strong>/10</span>
+                <span>⏱️ Tiempo: <strong id="tiempo">0</strong>s</span>
+            </div>
+            <div class="barra-progreso">
+                <div id="progreso" class="progreso"></div>
+            </div>
+            <button id="btnReiniciar">🔄 Reiniciar</button>
+        </div>
+
+        <div id="tablero" class="tablero"></div>
+
+        <!-- VENTANA MODAL DE VICTORIA -->
+        <div id="modalVictoria" class="modal">
+            <div class="modal-contenido">
+                <div class="modal-texto">
+                    <div class="emoji-grande">🎉</div>
+                    <h2>¡Felicidades mi tomatito! 🍅</h2>
+                    <p class="mensaje-especial">jajaja 😄</p>
+                    <p class="dia-especial">📅 Día 12 de 29</p>
+                    <div class="estadisticas-final">
+                        <span>🎯 <span id="finalIntentos">0</span> intentos</span>
+                        <span>⏱️ <span id="finalTiempo">0</span>s</span>
+                    </div>
+                    <button id="btnCerrarModal" class="btn-cerrar">🔄 Volver a jugar</button>
+                </div>
+                <!-- Confeti animado -->
+                <div id="confeti-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
