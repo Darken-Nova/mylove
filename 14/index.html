@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💖 Dia 14 de 29 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        .pantalla {
+            min-height: 100vh;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        /* PANTALLA 1: PASADO */
+        #pasado {
+            background: #f5e6d3;
+            color: #4a3f35;
+        }
+        #pasado h1 {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8em;
+            max-width: 95%;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        #pasado .imagen-wrapper {
+            max-width: 300px;  /* Tamaño máximo en escritorio */
+            width: 85%;
+            margin: 10px auto;
+        }
+        #pasado .imagen-wrapper img {
+            width: 100%;
+            height: auto;
+            border: 8px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: rotate(-2deg);
+            border-radius: 5px;
+            display: block;
+        }
+        
+        /* PANTALLA 2: PRESENTE */
+        #presente {
+            background: linear-gradient(145deg, #ff9a9e, #fad0c4);
+            color: #2d1b14;
+        }
+        #presente h1 {
+            font-family: 'Georgia', serif;
+            font-size: 2em;
+            font-weight: bold;
+            max-width: 95%;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        #presente .imagen-wrapper {
+            max-width: 280px;  /* Tamaño máximo en escritorio */
+            width: 80%;
+            margin: 10px auto;
+        }
+        #presente .imagen-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 5px solid gold;
+            display: block;
+        }
+        
+        .boton {
+            display: inline-block;
+            background: #2d1b14;
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            margin-top: 15px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .boton:hover {
+            background: #5a3d31;
+            transform: scale(1.05);
+        }
+        .boton-rosa {
+            background: #b3415c;
+        }
+        .boton-rosa:hover {
+            background: #d45f7a;
+        }
+        
+        .corazon {
+            font-size: 2.8em;
+            animation: latir 1s infinite alternate;
+            margin-top: 8px;
+        }
+        @keyframes latir {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.3); }
+        }
+        
+        /* 📱 SOLO PARA MÓVILES (menos de 600px) */
+        @media (max-width: 600px) {
+            #pasado h1 {
+                font-size: 1.3em;  /* Texto más pequeño en móvil */
+            }
+            #presente h1 {
+                font-size: 1.5em;  /* Texto más pequeño en móvil */
+            }
+            
+            #pasado .imagen-wrapper {
+                max-width: 220px;  /* 🔥 PEQUEÑO EN MÓVIL */
+                width: 75%;
+            }
+            #presente .imagen-wrapper {
+                max-width: 200px;  /* 🔥 PEQUEÑO EN MÓVIL */
+                width: 70%;
+            }
+            
+            .boton {
+                font-size: 0.9em;
+                padding: 12px 22px;
+            }
+            .corazon {
+                font-size: 2.2em;
+            }
+        }
+        
+        /* 📱 PARA MÓVILES MUY PEQUEÑOS (menos de 400px) */
+        @media (max-width: 400px) {
+            #pasado h1 {
+                font-size: 1.1em;
+            }
+            #presente h1 {
+                font-size: 1.3em;
+            }
+            #pasado .imagen-wrapper {
+                max-width: 170px;  /* 🔥 AÚN MÁS PEQUEÑO */
+                width: 70%;
+            }
+            #presente .imagen-wrapper {
+                max-width: 150px;  /* 🔥 AÚN MÁS PEQUEÑO */
+                width: 65%;
+            }
+            .boton {
+                font-size: 0.8em;
+                padding: 10px 18px;
+            }
+            .corazon {
+                font-size: 1.8em;
+            }
+        }
+        
+        /* 💻 PARA PANTALLAS GRANDES */
+        @media (min-width: 1200px) {
+            #pasado .imagen-wrapper {
+                max-width: 350px;
+            }
+            #presente .imagen-wrapper {
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA 1: PASADO -->
+    <div id="pasado" class="pantalla">
+        <h1>📅 Recordando el día que nos conocimos...<br>ese, qn eres? jajaja</h1>
+        
+        <div class="imagen-wrapper">
+            <img src="01.jpg" alt="Primera conversación">
+        </div>
+
+        <a href="#presente" class="boton">✨ Avanzamos al presente... ✨</a>
+    </div>
+
+    <!-- PANTALLA 2: PRESENTE -->
+    <div id="presente" class="pantalla">
+        <h1>❤️ Ahora estás en mi vida<br>y te quiero en ella,<br>hasta que al fin estemos juntos y seamos viejitos ❤️</h1>
+        
+        <div class="imagen-wrapper">
+            <img src="02.jpg" alt="Foto de nosotros">
+        </div>
+
+        <div class="corazon">💓</div>
+        
+        <button class="boton boton-rosa" onclick="mostrarMensaje()">🎁 Ver mensaje sorpresa</button>
+    </div>
+
+    <script>
+        function mostrarMensaje() {
+            alert('💖 Feliz dia 14 de 29 mi tomatito, te amo mucho 💖');
+        }
+    </script>
+
+</body>
+</html>
