@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Día 19 de 29 ❤️</title>
     <style>
-        /* RESET */
         * {
             margin: 0;
             padding: 0;
@@ -21,24 +20,28 @@
             font-family: 'Georgia', serif;
             overflow: hidden;
             touch-action: manipulation;
+            padding: 8px;
         }
 
-        /* Contenedor - ocupa toda la pantalla en móvil */
+        /* Contenedor principal - ocupa todo el ancho del celular */
         .video-container {
             width: 100%;
-            height: 100vh;
-            max-width: 430px;
+            max-width: 420px;
+            height: 92vh;
+            max-height: 780px;
             background: linear-gradient(145deg, #2d1b33, #160b1a);
-            padding: 20px 16px 24px;
+            border-radius: 28px;
+            padding: 16px 14px 18px;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
             animation: encender 0.8s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
         }
 
         @keyframes encender {
-            0% { opacity: 0; transform: scale(0.96); }
+            0% { opacity: 0; transform: scale(0.95); }
             100% { opacity: 1; transform: scale(1); }
         }
 
@@ -47,11 +50,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.2);
             font-size: 10px;
             font-family: 'Courier New', monospace;
-            letter-spacing: 1px;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             flex-shrink: 0;
         }
@@ -61,8 +63,8 @@
             gap: 5px;
         }
         .video-bar .dots span {
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             display: inline-block;
         }
@@ -76,24 +78,26 @@
             color: rgba(255, 138, 174, 0.5);
         }
 
-        /* Frame de video */
+        /* Frame de video - AHORA CON FLEX Y SIN ALTURA FIJA */
         .video-frame {
             flex: 1;
-            border-radius: 18px;
+            border-radius: 16px;
             overflow: hidden;
-            margin: 12px 0 10px;
+            margin: 8px 0 8px;
             position: relative;
             background: #0e0810;
-            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 0;
+            /* <-- Esto evita que se estire */
             touch-action: manipulation;
             cursor: pointer;
+            width: 100%;
         }
 
-        /* Slides */
+        /* Slides - AHORA CON POSITION ABSOLUTE Y 100% */
         .slide {
             position: absolute;
             top: 0;
@@ -104,9 +108,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 24px 20px;
+            padding: 16px 18px;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.9s ease-in-out;
             text-align: center;
         }
 
@@ -120,21 +124,28 @@
         }
 
         .slide-1 .emoji-big {
-            font-size: 64px;
-            margin-bottom: 12px;
+            font-size: 48px;
+            margin-bottom: 6px;
             animation: latido 2s infinite;
+            flex-shrink: 0;
         }
 
         @keyframes latido {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.08);
+            }
         }
 
         .slide-1 h1 {
-            font-size: 28px;
+            font-size: clamp(20px, 5vw, 28px);
             font-weight: 300;
             color: rgba(255, 255, 255, 0.92);
             letter-spacing: 1px;
+            flex-shrink: 0;
         }
 
         .slide-1 h1 span {
@@ -143,60 +154,69 @@
         }
 
         .slide-1 .pregunta {
-            font-size: 18px;
+            font-size: clamp(14px, 3vw, 18px);
             color: rgba(255, 255, 255, 0.6);
-            margin-top: 6px;
+            margin-top: 4px;
             font-style: italic;
             border-left: 3px solid #ff8aae;
-            padding-left: 14px;
+            padding-left: 12px;
+            flex-shrink: 0;
         }
 
-        /* Foto de ella en slide 1 */
         .foto-ella {
-            margin-top: 16px;
-            width: 120px;
-            height: 120px;
+            margin-top: 10px;
+            width: clamp(90px, 22vw, 130px);
+            height: clamp(90px, 22vw, 130px);
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(255, 138, 174, 0.25);
-            box-shadow: 0 0 50px rgba(255, 138, 174, 0.1);
+            border: 3px solid rgba(255, 138, 174, 0.2);
+            box-shadow: 0 0 40px rgba(255, 138, 174, 0.08);
             background: #1a0e1e;
+            flex-shrink: 0;
         }
 
         .foto-label {
-            margin-top: 6px;
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.12);
+            margin-top: 4px;
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.1);
             font-family: 'Courier New', monospace;
             letter-spacing: 4px;
+            flex-shrink: 0;
         }
 
         /* SLIDE 2 */
         .slide-2 {
             background: linear-gradient(145deg, #1f1225, #0d080f);
             justify-content: center;
-            gap: 4px;
+            gap: 2px;
         }
 
         .slide-2 .corazoncitos {
-            font-size: 28px;
+            font-size: 22px;
             letter-spacing: 6px;
             animation: flotar 3s ease-in-out infinite;
+            flex-shrink: 0;
         }
 
         @keyframes flotar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
         }
 
         .slide-2 .mensaje {
-            font-size: 17px;
-            line-height: 1.7;
+            font-size: clamp(14px, 3.5vw, 18px);
+            line-height: 1.6;
             color: rgba(255, 255, 255, 0.92);
             max-width: 340px;
             font-family: 'Georgia', serif;
             font-style: italic;
-            padding: 0 4px;
+            padding: 0 2px;
+            flex-shrink: 0;
         }
 
         .slide-2 .mensaje strong {
@@ -207,43 +227,45 @@
 
         .slide-2 .mensaje .highlight {
             color: #ffb3cc;
-            font-size: 20px;
+            font-size: clamp(17px, 4vw, 22px);
             font-weight: 700;
         }
 
         .slide-2 .apodo {
-            font-size: 24px;
+            font-size: clamp(18px, 4vw, 24px);
             color: #ff8aae;
             font-weight: 700;
-            margin-top: 6px;
+            margin-top: 4px;
             letter-spacing: 2px;
             font-family: 'Courier New', monospace;
+            flex-shrink: 0;
         }
 
         .slide-2 .fecha {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.15);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.12);
             font-family: 'Courier New', monospace;
-            margin-top: 6px;
+            margin-top: 4px;
             letter-spacing: 3px;
+            flex-shrink: 0;
         }
 
-        /* Foto de los 2 en slide 2 */
         .foto-dos {
-            margin-top: 10px;
-            width: 80px;
-            height: 80px;
+            margin-top: 8px;
+            width: clamp(60px, 15vw, 85px);
+            height: clamp(60px, 15vw, 85px);
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255, 138, 174, 0.15);
+            border: 2px solid rgba(255, 138, 174, 0.12);
             background: #1a0e1e;
+            flex-shrink: 0;
         }
 
         /* Barra de progreso */
         .progress-container {
             width: 100%;
             height: 3px;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             overflow: hidden;
             flex-shrink: 0;
@@ -258,8 +280,12 @@
         }
 
         @keyframes progreso {
-            0% { width: 0%; }
-            100% { width: 100%; }
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
         }
 
         /* Controles */
@@ -267,26 +293,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: rgba(255, 255, 255, 0.1);
-            font-size: 18px;
-            padding-top: 8px;
+            color: rgba(255, 255, 255, 0.08);
+            font-size: 16px;
+            padding-top: 6px;
             font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             flex-shrink: 0;
         }
 
         .video-controls span {
-            font-size: 10px;
-            opacity: 0.3;
+            font-size: 9px;
+            opacity: 0.25;
             letter-spacing: 2px;
         }
 
         .video-controls .control-btn {
             background: none;
             border: none;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 20px;
-            padding: 4px 10px;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 18px;
+            padding: 2px 8px;
             cursor: pointer;
             touch-action: manipulation;
             font-family: 'Courier New', monospace;
@@ -297,14 +323,13 @@
             transform: scale(0.9);
         }
 
-        /* Indicador de pausa flotante */
         .pause-indicator {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 48px;
-            color: rgba(255, 255, 255, 0.15);
+            font-size: 40px;
+            color: rgba(255, 255, 255, 0.12);
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s;
@@ -316,218 +341,250 @@
         }
 
         /* Responsive para pantallas muy pequeñas */
-        @media (max-width: 380px) {
-            .video-container { padding: 12px 10px 16px; }
-            .slide-1 h1 { font-size: 22px; }
-            .slide-2 .mensaje { font-size: 15px; line-height: 1.6; }
-            .slide-1 .emoji-big { font-size: 48px; }
-            .slide-2 .apodo { font-size: 20px; }
-            .foto-ella { width: 90px; height: 90px; }
-            .foto-dos { width: 65px; height: 65px; }
-            .video-bar .titulo { font-size: 9px; }
+        @media (max-width: 360px) {
+            .video-container {
+                padding: 10px 8px 12px;
+                border-radius: 16px;
+                height: 94vh;
+            }
+            .slide {
+                padding: 10px 12px;
+            }
+            .slide-2 .mensaje {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+            .slide-1 .emoji-big {
+                font-size: 36px;
+            }
+            .slide-1 h1 {
+                font-size: 18px;
+            }
+            .slide-2 .apodo {
+                font-size: 16px;
+            }
+            .foto-ella {
+                width: 70px;
+                height: 70px;
+            }
+            .foto-dos {
+                width: 50px;
+                height: 50px;
+            }
         }
 
-        @media (max-height: 650px) {
-            .slide-1 .emoji-big { font-size: 40px; margin-bottom: 6px; }
-            .slide-1 h1 { font-size: 20px; }
-            .slide-1 .pregunta { font-size: 14px; }
-            .slide-2 .mensaje { font-size: 14px; line-height: 1.5; }
-            .slide-2 .apodo { font-size: 18px; }
-            .foto-ella { width: 80px; height: 80px; margin-top: 8px; }
-            .foto-dos { width: 55px; height: 55px; margin-top: 6px; }
-            .video-frame { margin: 6px 0; }
+        @media (max-height: 600px) {
+            .slide-1 .emoji-big {
+                font-size: 30px;
+                margin-bottom: 2px;
+            }
+            .slide-1 h1 {
+                font-size: 16px;
+            }
+            .slide-1 .pregunta {
+                font-size: 12px;
+            }
+            .slide-2 .mensaje {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            .slide-2 .apodo {
+                font-size: 14px;
+            }
+            .foto-ella {
+                width: 60px;
+                height: 60px;
+                margin-top: 4px;
+            }
+            .foto-dos {
+                width: 45px;
+                height: 45px;
+                margin-top: 4px;
+            }
+            .video-frame {
+                margin: 4px 0;
+            }
+            .video-container {
+                padding: 10px 10px 12px;
+                height: 96vh;
+            }
+            .slide {
+                padding: 8px 12px;
+            }
         }
 
-        /* Ocultar scroll y selección */
-        ::-webkit-scrollbar { display: none; }
-        body { -webkit-user-select: none; user-select: none; }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
 
-<div class="video-container">
+    <div class="video-container">
 
-    <!-- Barra superior -->
-    <div class="video-bar">
-        <div class="dots">
-            <span class="dot-red"></span>
-            <span class="dot-yellow"></span>
-            <span class="dot-green"></span>
-        </div>
-        <span class="titulo">♥ 19 / 29 ♥</span>
-        <span style="font-size:14px;">🍅</span>
-    </div>
-
-    <!-- Frame -->
-    <div class="video-frame" id="videoFrame">
-
-        <!-- Indicador de pausa -->
-        <div class="pause-indicator" id="pauseIndicator">⏸</div>
-
-        <!-- SLIDE 1: Foto de ELLA -->
-        <div class="slide slide-1 active" id="slide1">
-            <div class="emoji-big">🌸</div>
-            <h1>¿Y si te digo que...</h1>
-            <div class="pregunta">— hoy tengo algo para ti —</div>
-
-            <!-- === REEMPLAZA "foto-ella.jpg" por tu imagen === -->
-            <img src="04.jpg" alt="Ella" class="foto-ella" />
-
-            <div class="foto-label">✦ TÚ ✦</div>
-        </div>
-
-        <!-- SLIDE 2: Foto de LOS 2 + mensaje -->
-        <div class="slide slide-2" id="slide2">
-            <div class="corazoncitos">💕 ✨ 💕</div>
-            <div class="mensaje">
-                "...hoy 19, solo faltan <strong>10 días</strong> para tu cumple, amol.<br><br>
-                Ya quiero que sea <span class="highlight">29</span> para poder felicitarte<br>
-                en tu día especial, mi vida.<br><br>
-                <strong>Te amo mucho, mi tomatito</strong> 🍅"
+        <!-- Barra superior -->
+        <div class="video-bar">
+            <div class="dots">
+                <span class="dot-red"></span>
+                <span class="dot-yellow"></span>
+                <span class="dot-green"></span>
             </div>
-            <div class="apodo">❤️ TOMATITO ❤️</div>
-            <div class="fecha">19 · 29 · 2026</div>
+            <span class="titulo">♥ 19 / 29 ♥</span>
+            <span style="font-size:14px;">🍅</span>
+        </div>
 
-            <!-- === REEMPLAZA "foto-los-dos.jpg" por tu imagen === -->
-            <img src="03.jpg" alt="Los dos" class="foto-dos" />
+        <!-- Frame -->
+        <div class="video-frame" id="videoFrame">
+
+            <div class="pause-indicator" id="pauseIndicator">⏸</div>
+
+            <!-- SLIDE 1 -->
+            <div class="slide slide-1 active" id="slide1">
+                <div class="emoji-big">🌸</div>
+                <h1>¿Y si te digo que...</h1>
+                <div class="pregunta">— hoy tengo algo para ti —</div>
+
+                <!-- REEMPLAZA "foto-ella.jpg" -->
+                <img src="04.jpg" alt="Ella" class="foto-ella" />
+
+                <div class="foto-label">✦ TÚ ✦</div>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="slide slide-2" id="slide2">
+                <div class="corazoncitos">💕 ✨ 💕</div>
+                <div class="mensaje">
+                    "...hoy 19, solo faltan <strong>10 días</strong> para tu cumple, amol.<br><br>
+                    Ya quiero que sea <span class="highlight">29</span> para poder felicitarte<br>
+                    en tu día especial, mi vida.<br><br>
+                    <strong>Te amo mucho, mi tomatito</strong> 🍅"
+                </div>
+                <div class="apodo">❤️ TOMATITO ❤️</div>
+                <div class="fecha">19 · 29 · 2026</div>
+
+                <!-- REEMPLAZA "foto-los-dos.jpg" -->
+                <img src="03.jpg" alt="Los dos" class="foto-dos" />
+            </div>
+
+        </div>
+
+        <!-- Barra de progreso -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Controles -->
+        <div class="video-controls">
+            <span>◄◄</span>
+            <button class="control-btn" id="playBtn">▶</button>
+            <button class="control-btn" id="resetBtn">⟳</button>
+            <span>19/29</span>
         </div>
 
     </div>
 
-    <!-- Barra de progreso -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <script>
+        // =========================================================
+        // ELEMENTOS
+        // =========================================================
+        const slide1 = document.getElementById('slide1');
+        const slide2 = document.getElementById('slide2');
+        const frame = document.getElementById('videoFrame');
+        const progressBar = document.getElementById('progressBar');
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const pauseIndicator = document.getElementById('pauseIndicator');
 
-    <!-- Controles -->
-    <div class="video-controls">
-        <span>◄◄</span>
-        <button class="control-btn" id="playBtn">▶</button>
-        <button class="control-btn" id="resetBtn">⟳</button>
-        <span style="font-size:9px;">19/29</span>
-    </div>
+        let pausado = false;
+        let timeoutId = null;
 
-</div>
-
-<script>
-    // =========================================================
-    // ELEMENTOS
-    // =========================================================
-    const slide1 = document.getElementById('slide1');
-    const slide2 = document.getElementById('slide2');
-    const frame = document.getElementById('videoFrame');
-    const progressBar = document.getElementById('progressBar');
-    const playBtn = document.getElementById('playBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const pauseIndicator = document.getElementById('pauseIndicator');
-
-    let pausado = false;
-    let timeoutId = null;
-    let animationPaused = false;
-    let currentTime = 0;
-
-    // =========================================================
-    // FUNCIÓN: Cambiar a slide 2
-    // =========================================================
-    function cambiarASlide2() {
-        slide1.classList.remove('active');
-        slide2.classList.add('active');
-        playBtn.textContent = '⏸';
-        pausado = false;
-    }
-
-    // =========================================================
-    // FUNCIÓN: Iniciar temporizador
-    // =========================================================
-    function iniciarTemporizador() {
-        if (timeoutId) clearTimeout(timeoutId);
-        if (!pausado && slide1.classList.contains('active')) {
-            timeoutId = setTimeout(cambiarASlide2, 3500);
-        }
-    }
-
-    // =========================================================
-    // FUNCIÓN: Pausar/Reanudar
-    // =========================================================
-    function togglePausa() {
-        if (slide2.classList.contains('active')) {
-            // Si ya está en slide 2, no hace nada (o reinicia)
-            return;
-        }
-
-        pausado = !pausado;
-
-        if (pausado) {
-            // PAUSAR
-            clearTimeout(timeoutId);
-            progressBar.style.animationPlayState = 'paused';
-            playBtn.textContent = '▶';
-            pauseIndicator.classList.add('show');
-            setTimeout(() => pauseIndicator.classList.remove('show'), 600);
-        } else {
-            // REANUDAR
-            progressBar.style.animationPlayState = 'running';
+        // =========================================================
+        // FUNCIONES
+        // =========================================================
+        function cambiarASlide2() {
+            slide1.classList.remove('active');
+            slide2.classList.add('active');
             playBtn.textContent = '⏸';
+            pausado = false;
+        }
+
+        function iniciarTemporizador() {
+            if (timeoutId) clearTimeout(timeoutId);
+            if (!pausado && slide1.classList.contains('active')) {
+                timeoutId = setTimeout(cambiarASlide2, 3500);
+            }
+        }
+
+        function togglePausa() {
+            if (slide2.classList.contains('active')) {
+                // Si ya terminó, reiniciamos
+                reiniciar();
+                return;
+            }
+
+            pausado = !pausado;
+
+            if (pausado) {
+                clearTimeout(timeoutId);
+                progressBar.style.animationPlayState = 'paused';
+                playBtn.textContent = '▶';
+                pauseIndicator.classList.add('show');
+                setTimeout(() => pauseIndicator.classList.remove('show'), 500);
+            } else {
+                progressBar.style.animationPlayState = 'running';
+                playBtn.textContent = '⏸';
+                iniciarTemporizador();
+            }
+        }
+
+        function reiniciar() {
+            clearTimeout(timeoutId);
+            pausado = false;
+            playBtn.textContent = '⏸';
+
+            slide2.classList.remove('active');
+            slide1.classList.add('active');
+
+            progressBar.style.animation = 'none';
+            void progressBar.offsetHeight;
+            progressBar.style.animation = 'progreso 8s linear forwards';
+            progressBar.style.animationPlayState = 'running';
+
             iniciarTemporizador();
         }
-    }
 
-    // =========================================================
-    // FUNCIÓN: Reiniciar
-    // =========================================================
-    function reiniciar() {
-        clearTimeout(timeoutId);
-        pausado = false;
-        playBtn.textContent = '⏸';
+        // =========================================================
+        // EVENTOS
+        // =========================================================
+        frame.addEventListener('click', togglePausa);
 
-        // Volver a slide 1
-        slide2.classList.remove('active');
-        slide1.classList.add('active');
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePausa();
+        });
 
-        // Reiniciar barra
-        progressBar.style.animation = 'none';
-        void progressBar.offsetHeight; // trigger reflow
-        progressBar.style.animation = 'progreso 8s linear forwards';
-        progressBar.style.animationPlayState = 'running';
+        resetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            reiniciar();
+        });
 
-        // Iniciar temporizador
+        // =========================================================
+        // INICIO
+        // =========================================================
         iniciarTemporizador();
-    }
 
-    // =========================================================
-    // EVENTOS
-    // =========================================================
+        progressBar.addEventListener('animationend', () => {
+            if (slide1.classList.contains('active')) {
+                cambiarASlide2();
+            }
+        });
 
-    // Click en el frame = pausa
-    frame.addEventListener('click', togglePausa);
-
-    // Botón play/pausa
-    playBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        togglePausa();
-    });
-
-    // Botón reiniciar
-    resetBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        reiniciar();
-    });
-
-    // =========================================================
-    // INICIO
-    // =========================================================
-    iniciarTemporizador();
-
-    // Cuando termina la barra
-    progressBar.addEventListener('animationend', () => {
-        // Si terminó y aún no cambió, forzamos cambio
-        if (slide1.classList.contains('active')) {
-            cambiarASlide2();
-        }
-    });
-
-    console.log('❤️ Día 19 de 29 — Para mi tomatito ❤️');
-</script>
+        console.log('❤️ Día 19 de 29 — Para mi tomatito ❤️');
+    </script>
 
 </body>
 </html>
